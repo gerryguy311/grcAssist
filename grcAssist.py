@@ -26,7 +26,8 @@
 import csv
 import requests
 import datetime
-from openpyxl import Workbook 
+from openpyxl import Workbook
+import urllib.parse
 
 def search_news(keyword, api_key, category="technology", language="en"):
   """
@@ -88,7 +89,7 @@ def main():
   with open(keywords_file, 'r') as file:
     reader = csv.reader(file)
     for row in reader:
-      keywords.append(unquote(row[0])) #URL-decode each keyword
+      keywords.append(urllib.parse.unquote(row[0])) #URL-decode each keyword
 
   # Alternatively, get keywords from user input
   # keywords = input("Enter keywords separated by commas: ").split(",")
