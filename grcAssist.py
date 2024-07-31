@@ -72,7 +72,7 @@ def write_to_spreadsheet(articles, filename, keyword):
       filename: The filename for the spreadsheet.
   """
   today = datetime.date.today().strftime("%Y-%m-%d")
-  with open(filename, 'a', newline='') as csvfile:
+  with open(filename, 'a', newline='', encoding='utf-8') as csvfile:
     writer = csv.writer(csvfile)
     for article in articles:
       writer.writerow([today, keyword, article["headline"], article["description"], article["url"]])
@@ -88,7 +88,7 @@ def main():
   with open(keywords_file, 'r') as file:
     reader = csv.reader(file)
     for row in reader:
-      keywords.append(row[0])
+      keywords.append(unquote(row[0])) #URL-decode each keyword
 
   # Alternatively, get keywords from user input
   # keywords = input("Enter keywords separated by commas: ").split(",")
